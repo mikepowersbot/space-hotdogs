@@ -35,45 +35,43 @@ export function Navigation() {
   }
 
   return (
-    <nav className="relative z-10 p-6">
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <Link href="/" className="flex items-center gap-2">
+    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
           <span className="text-3xl">🌭</span>
-          <span className="text-2xl font-bold bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
-            Space Hotdogs
-          </span>
+          <span className="text-2xl font-bold text-gray-900">Space Hotdogs</span>
         </Link>
         {loading ? (
-          <div className="w-24 h-10 bg-purple-800/50 animate-pulse rounded-lg" />
+          <div className="w-24 h-10 bg-gray-100 animate-pulse rounded-lg" />
         ) : user ? (
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-3 items-center">
             <Link href="/dashboard">
-              <Button variant="outline" className="border-purple-400 text-purple-200 hover:bg-purple-900/50">
+              <Button variant="ghost" className="text-gray-600 hover:text-gray-900 hover:bg-gray-100">
                 Dashboard
               </Button>
             </Link>
             <Link href="/profile">
-              <Button variant="outline" className="border-purple-400 text-purple-200 hover:bg-purple-900/50">
+              <Button variant="ghost" className="text-gray-600 hover:text-gray-900 hover:bg-gray-100">
                 Profile
               </Button>
             </Link>
             <Button
               onClick={handleSignOut}
               variant="ghost"
-              className="text-purple-200 hover:text-white hover:bg-purple-900/30"
+              className="text-gray-600 hover:text-gray-900 hover:bg-gray-100"
             >
               Sign Out
             </Button>
           </div>
         ) : (
-          <div className="flex gap-4">
+          <div className="flex gap-3">
             <Link href="/login">
-              <Button variant="outline" className="border-purple-400 text-purple-200 hover:bg-purple-900/50">
+              <Button variant="ghost" className="text-gray-600 hover:text-gray-900 hover:bg-gray-100">
                 Sign In
               </Button>
             </Link>
             <Link href="/signup">
-              <Button className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white">
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white">
                 Sign Up
               </Button>
             </Link>

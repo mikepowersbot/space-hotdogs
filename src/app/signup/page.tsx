@@ -43,95 +43,76 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-950 via-purple-900 to-slate-900 flex items-center justify-center p-6">
-      {/* Stars Background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/20 via-indigo-900/10 to-slate-900/30" />
-        {Array.from({ length: 100 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full bg-white animate-pulse"
-            style={{
-              width: `${Math.random() * 3 + 1}px`,
-              height: `${Math.random() * 3 + 1}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              opacity: Math.random() * 0.7 + 0.3,
-            }}
-          />
-        ))}
-      </div>
-
-      <Card className="w-full max-w-md bg-purple-900/50 border-purple-500/30 backdrop-blur-sm relative z-10">
-        <CardHeader className="text-center">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white flex items-center justify-center p-6">
+      <Card className="w-full max-w-md bg-white border-gray-200 shadow-lg">
+        <CardHeader className="text-center space-y-1">
           <div className="text-6xl mb-2">🌭</div>
-          <CardTitle className="text-3xl text-white">Join the Galaxy</CardTitle>
-          <CardDescription className="text-purple-200">
+          <CardTitle className="text-2xl font-bold text-gray-900">Join the Galaxy</CardTitle>
+          <CardDescription className="text-gray-600">
             Create your Space Hotdogs account
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSignup}>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-6">
             {error && (
-              <div className="p-3 rounded-lg bg-red-500/20 border border-red-500/50 text-red-200 text-sm">
+              <div className="p-3 rounded-lg bg-red-50 border border-red-200 text-red-600 text-sm transition-all">
                 {error}
               </div>
             )}
             {message && (
-              <div className="p-3 rounded-lg bg-green-500/20 border border-green/50 text-green-200 text-sm">
+              <div className="p-3 rounded-lg bg-green-50 border border-green-200 text-green-600 text-sm transition-all">
                 {message}
               </div>
             )}
             <div className="space-y-2">
-              <Label htmlFor="fullName" className="text-purple-200">Full Name</Label>
+              <Label htmlFor="fullName" className="text-gray-700 font-medium">Full Name</Label>
               <Input
                 id="fullName"
                 type="text"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 required
-                className="bg-purple-800/30 border-purple-600/50 text-white placeholder:text-purple-300/50"
+                className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500"
                 placeholder="Commander Shepard"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-purple-200">Email</Label>
+              <Label htmlFor="email" className="text-gray-700 font-medium">Email</Label>
               <Input
                 id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="bg-purple-800/30 border-purple-600/50 text-white placeholder:text-purple-300/50"
+                className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500"
                 placeholder="astronaut@example.com"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-purple-200">Password</Label>
+              <Label htmlFor="password" className="text-gray-700 font-medium">Password</Label>
               <Input
                 id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="bg-purple-800/30 border-purple-600/50 text-white placeholder:text-purple-300/50"
+                className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500"
                 placeholder="••••••••"
                 minLength={6}
               />
             </div>
           </CardContent>
-          <CardFooter className="flex flex-col gap-4">
+          <CardFooter className="flex flex-col gap-4 pt-2">
             <Button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-lg transition-all"
             >
               {loading ? 'Creating Account...' : 'Create Account'}
             </Button>
-            <p className="text-center text-purple-300 text-sm">
+            <p className="text-center text-gray-600 text-sm">
               Already have an account?{' '}
-              <Link href="/login" className="text-purple-200 hover:text-white underline">
+              <Link href="/login" className="text-blue-600 hover:text-blue-700 font-medium transition-colors">
                 Sign in
               </Link>
             </p>

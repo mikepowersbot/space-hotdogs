@@ -41,52 +41,33 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-950 via-purple-900 to-slate-900 flex items-center justify-center">
-        <div className="text-purple-200 text-xl">Loading...</div>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-gray-600 text-xl">Loading...</div>
       </div>
     )
   }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-950 via-purple-900 to-slate-900">
-      {/* Stars Background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/20 via-indigo-900/10 to-slate-900/30" />
-        {Array.from({ length: 100 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full bg-white animate-pulse"
-            style={{
-              width: `${Math.random() * 3 + 1}px`,
-              height: `${Math.random() * 3 + 1}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              opacity: Math.random() * 0.7 + 0.3,
-            }}
-          />
-        ))}
-      </div>
+  const userName = profile?.full_name || user?.email?.split('@')[0] || 'User'
 
+  return (
+    <div className="min-h-screen bg-gray-50">
       {/* Navigation */}
-      <nav className="relative z-10 p-6">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
+      <nav className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <Link href="/dashboard" className="flex items-center gap-2">
             <span className="text-3xl">🌭</span>
-            <span className="text-2xl font-bold bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
-              Space Hotdogs
-            </span>
+            <span className="text-2xl font-bold text-gray-900">Space Hotdogs</span>
           </Link>
           <div className="flex gap-4 items-center">
             <Link href="/profile">
-              <Button variant="outline" className="border-purple-400 text-purple-200 hover:bg-purple-900/50">
+              <Button variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-50">
                 Edit Profile
               </Button>
             </Link>
             <Button
               onClick={handleSignOut}
               variant="ghost"
-              className="text-purple-200 hover:text-white hover:bg-purple-900/30"
+              className="text-gray-600 hover:text-gray-900 hover:bg-gray-100"
             >
               Sign Out
             </Button>
@@ -95,80 +76,128 @@ export default function DashboardPage() {
       </nav>
 
       {/* Dashboard Content */}
-      <main className="relative z-10 px-6 py-12">
-        <div className="max-w-4xl mx-auto space-y-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">Dashboard</h1>
-            <p className="text-xl text-purple-200">Welcome to your personal space station</p>
-          </div>
+      <main className="max-w-7xl mx-auto px-6 py-12">
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">Dashboard</h1>
+          <p className="text-xl text-gray-600">Welcome back, {userName}!</p>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card className="bg-purple-900/50 border-purple-500/30 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-white">Account Info</CardTitle>
-                <CardDescription className="text-purple-200">
-                  Your basic account details
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <p className="text-sm text-purple-300 mb-1">Email</p>
-                  <p className="text-white font-medium">{user?.email}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-purple-300 mb-1">Full Name</p>
-                  <p className="text-white font-medium">{profile?.full_name || 'Not set'}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-purple-300 mb-1">Member Since</p>
-                  <p className="text-white font-medium">
-                    {user?.created_at ? new Date(user.created_at).toLocaleDateString() : 'Unknown'}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-purple-900/50 border-purple-500/30 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-white">Quick Actions</CardTitle>
-                <CardDescription className="text-purple-200">
-                  Manage your account
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <Link href="/profile" className="block">
-                  <Button className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white">
-                    Edit Profile
-                  </Button>
-                </Link>
-                <Button
-                  onClick={handleSignOut}
-                  variant="outline"
-                  className="w-full border-purple-400 text-purple-200 hover:bg-purple-900/50"
-                >
-                  Sign Out
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-
-          <Card className="bg-gradient-to-r from-purple-900/60 to-pink-900/60 border-purple-500/40 backdrop-blur-md">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <Card className="bg-white border-gray-200 shadow-sm">
             <CardHeader>
-              <CardTitle className="text-white text-2xl">🍔 Ready to Order?</CardTitle>
-              <CardDescription className="text-purple-200">
-                Your account is all set! Start exploring our cosmic menu.
+              <CardTitle className="text-gray-900">Total Orders</CardTitle>
+              <CardDescription className="text-gray-600">
+                Your lifetime orders
               </CardDescription>
             </CardHeader>
-            <CardFooter>
-              <Button
-                size="lg"
-                className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white text-lg py-6 rounded-full shadow-lg shadow-purple-500/50"
-              >
-                🛸 Order Now
-              </Button>
-            </CardFooter>
+            <CardContent>
+              <div className="text-4xl font-bold text-gray-900">0</div>
+              <p className="text-sm text-gray-500 mt-1">No orders yet</p>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white border-gray-200 shadow-sm">
+            <CardHeader>
+              <CardTitle className="text-gray-900">Account Status</CardTitle>
+              <CardDescription className="text-gray-600">
+                Your membership status
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                <span className="text-lg font-semibold text-gray-900">Active</span>
+              </div>
+              <p className="text-sm text-gray-500 mt-2">Member since {user?.created_at ? new Date(user.created_at).toLocaleDateString() : 'Unknown'}</p>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white border-gray-200 shadow-sm">
+            <CardHeader>
+              <CardTitle className="text-gray-900">Total Spent</CardTitle>
+              <CardDescription className="text-gray-600">
+                Lifetime purchases
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-4xl font-bold text-gray-900">$0.00</div>
+              <p className="text-sm text-gray-500 mt-1">Start ordering to see stats</p>
+            </CardContent>
           </Card>
         </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <Card className="bg-white border-gray-200 shadow-sm">
+            <CardHeader>
+              <CardTitle className="text-gray-900">Recent Activity</CardTitle>
+              <CardDescription className="text-gray-600">
+                Your latest account actions
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg">
+                  <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                    <span className="text-blue-600">📝</span>
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-medium text-gray-900">Account created</p>
+                    <p className="text-sm text-gray-600">
+                      {user?.created_at ? new Date(user.created_at).toLocaleDateString() : 'Unknown date'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              {!profile?.full_name && (
+                <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                  <p className="text-blue-900 text-sm">
+                    Complete your profile to enhance your experience!
+                  </p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white border-gray-200 shadow-sm">
+            <CardHeader>
+              <CardTitle className="text-gray-900">Quick Actions</CardTitle>
+              <CardDescription className="text-gray-600">
+                Common tasks and shortcuts
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <Link href="/profile" className="block">
+                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-lg transition-all">
+                  Edit Profile
+                </Button>
+              </Link>
+              <Button
+                onClick={handleSignOut}
+                variant="outline"
+                className="w-full border-gray-300 text-gray-700 hover:bg-gray-50 py-2.5 rounded-lg"
+              >
+                Sign Out
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+
+        <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 border-gray-200 shadow-md">
+          <CardHeader>
+            <CardTitle className="text-2xl text-gray-900">🍔 Ready to Order?</CardTitle>
+            <CardDescription className="text-gray-600">
+              Your account is all set! Start exploring our cosmic menu.
+            </CardDescription>
+          </CardHeader>
+          <CardFooter>
+            <Button
+              size="lg"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-6 rounded-lg shadow-md hover:shadow-lg"
+            >
+              🛸 Order Now
+            </Button>
+          </CardFooter>
+        </Card>
       </main>
     </div>
   )
