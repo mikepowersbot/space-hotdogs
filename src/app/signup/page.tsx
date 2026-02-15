@@ -16,14 +16,13 @@ export default function SignupPage() {
   const [error, setError] = useState<string | null>(null)
   const [message, setMessage] = useState<string | null>(null)
 
-  const supabase = createClient()
-
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setError(null)
     setMessage(null)
 
+    const supabase = createClient()
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -80,7 +79,7 @@ export default function SignupPage() {
               </div>
             )}
             {message && (
-              <div className="p-3 rounded-lg bg-green-500/20 border border-green-500/50 text-green-200 text-sm">
+              <div className="p-3 rounded-lg bg-green-500/20 border border-green/50 text-green-200 text-sm">
                 {message}
               </div>
             )}

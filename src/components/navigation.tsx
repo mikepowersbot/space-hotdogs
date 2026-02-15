@@ -8,25 +8,29 @@ import Link from 'next/link'
 export function Navigation() {
   const [user, setUser] = useState<any>(null)
   const [loading, setLoading] = useState(true)
-  const supabase = createClient()
+  const [supabase, setSupabase] = useState<any>(null)
 
   useEffect(() => {
+    const client = createClient()
+    setSupabase(client)
+
     const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser()
+      const { data: { user } } = await client.auth.getUser()
       setUser(user)
       setLoading(false)
     }
 
     getUser()
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = client.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null)
     })
 
     return () => subscription.unsubscribe()
-  }, [supabase])
+  }, [])
 
   const handleSignOut = async () => {
+    if (!supabase) return
     await supabase.auth.signOut()
   }
 

@@ -3,16 +3,19 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
 
 export default function DashboardPage() {
   const [user, setUser] = useState<any>(null)
   const [profile, setProfile] = useState<any>(null)
   const [loading, setLoading] = useState(true)
-  const supabase = createClient()
 
   useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const supabase = createClient()
+
     const fetchUserData = async () => {
       const { data: { user } } = await supabase.auth.getUser()
       if (user) {
@@ -28,9 +31,10 @@ export default function DashboardPage() {
     }
 
     fetchUserData()
-  }, [supabase])
+  }, [])
 
   const handleSignOut = async () => {
+    const supabase = createClient()
     await supabase.auth.signOut()
     window.location.href = '/'
   }
@@ -155,14 +159,14 @@ export default function DashboardPage() {
                 Your account is all set! Start exploring our cosmic menu.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardFooter>
               <Button
                 size="lg"
                 className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white text-lg py-6 rounded-full shadow-lg shadow-purple-500/50"
               >
                 🛸 Order Now
               </Button>
-            </CardContent>
+            </CardFooter>
           </Card>
         </div>
       </main>

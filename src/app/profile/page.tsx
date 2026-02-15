@@ -17,9 +17,11 @@ export default function ProfilePage() {
   const [message, setMessage] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  const supabase = createClient()
-
   useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const supabase = createClient()
+
     const fetchProfile = async () => {
       const { data: { user } } = await supabase.auth.getUser()
       if (user) {
@@ -38,7 +40,7 @@ export default function ProfilePage() {
     }
 
     fetchProfile()
-  }, [supabase])
+  }, [])
 
   const updateProfile = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -48,6 +50,7 @@ export default function ProfilePage() {
 
     if (!user) return
 
+    const supabase = createClient()
     const { error } = await supabase
       .from('users')
       .upsert({
@@ -67,6 +70,7 @@ export default function ProfilePage() {
   }
 
   const handleSignOut = async () => {
+    const supabase = createClient()
     await supabase.auth.signOut()
     window.location.href = '/'
   }
@@ -149,7 +153,7 @@ export default function ProfilePage() {
                   </div>
                 )}
                 {message && (
-                  <div className="p-3 rounded-lg bg-green-500/20 border border-green-500/50 text-green-200 text-sm">
+                  <div className="p-3 rounded-lg bg-green-500/20 border border-green/50 text-green-200 text-sm">
                     {message}
                   </div>
                 )}
