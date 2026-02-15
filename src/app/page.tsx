@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Navigation } from "@/components/navigation";
 
 export default function Home() {
   return (
@@ -23,20 +24,7 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Navigation */}
-      <nav className="relative z-10 p-6">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <span className="text-3xl">🌭</span>
-            <span className="text-2xl font-bold bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
-              Space Hotdogs
-            </span>
-          </div>
-          <Button variant="outline" className="border-purple-400 text-purple-200 hover:bg-purple-900/50">
-            Menu
-          </Button>
-        </div>
-      </nav>
+      <Navigation />
 
       {/* Hero Section */}
       <section className="relative z-10 px-6 py-24 text-center">
